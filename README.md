@@ -40,7 +40,7 @@ CREATE TABLE user_events (
 ) WITH CLUSTERING ORDER BY (event_time DESC, event_type ASC);
 ```
 
-## Events kafka avro schema
+## Kafka events avro schema
 ```
 {
   "type": "record",
