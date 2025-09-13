@@ -47,6 +47,26 @@ Make sure the following are properly configured:
 - Host, port, keyspace, and table configured in `CassandraSinkFactory`
 - Table schema matches fields in `UserEventCassandraModel`
 
+    #### Events datastore schema
+    
+        - Bucket user events data by date
+        - Partition key: user_id + bucket_date
+          - we can bucket by hour as well, bucketing is mainly done to avoid hotspotting of the partition
+          
+        - Sort (clustering) key: event_time + event_type
+          - added to sort the data within the partition
+        
+        CREATE TABLE user_events (
+            user_id UUID,
+            bucket_date DATE,
+            event_time TIMESTAMP,
+            event_type TEXT,
+            event_id UUID,
+            metadata MAP<TEXT, TEXT>,
+            PRIMARY KEY ((user_id, bucket_date), event_time, event_type)
+        ) WITH CLUSTERING ORDER BY (event_time DESC, event_type ASC);
+        
+
 ---
 
 ## ▶️ Getting Started
@@ -86,7 +106,7 @@ To simplify the setup, you can run Kafka, Cassandra, Flink, and supporting servi
     ```bash
     - docker exec -it cassandra cqlsh
     - execute the sql from below file
-        flink_app/cassandra-init/init.cql 
+        flink_app/cassandra-init/init.cql
 
 2. Create Kafka source topic
        
