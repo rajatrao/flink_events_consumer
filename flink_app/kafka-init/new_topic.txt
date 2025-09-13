@@ -1,0 +1,17 @@
+1.Find network 
+- docker ps
+- docker inspect <kafka container_name>
+- check network name 
+
+2.Create kafka topic
+docker run --rm --network flink_app_default confluentinc/cp-kafka:7.6.0 \
+  kafka-topics --create --topic user-events \
+  --bootstrap-server kafka:29092 \
+  --replication-factor 1 --partitions 3
+
+3. Verify
+  docker run -it --rm \
+  --network flink_app_default \
+  confluentinc/cp-kafka:5.5.1 bash
+
+  docker exec -it flink_app-kafka-1 kafka-console-producer --broker-list localhost:9092 --topic user-events

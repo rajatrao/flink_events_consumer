@@ -1,0 +1,4 @@
+# VS Code
+.vscode/
+activity_source/target/
+flink_app/target/

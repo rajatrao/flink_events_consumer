@@ -1,11 +1,10 @@
-# Flink user events consumer
-Flink streaming job to consume and store user events
+# 🌐 Real-Time User Event Streaming System
 
-# Motivation
+## Motivation
 Users do many things on the website, like clicking, viewing pages, and submitting forms. 
 We need an easy way to capture these actions at scale so we can understand user behavior, improve the experience, and grow the business.  
 
-# Data flow
+## Data flow
 
 [Kafka Source] → [Parse + Transform] → [Extract bucket_date] → [Sink to Cassandra]
 
@@ -40,48 +39,46 @@ CREATE TABLE user_events (
 ) WITH CLUSTERING ORDER BY (event_time DESC, event_type ASC);
 ```
 
-## Kafka events avro schema
-```
-{
-  "type": "record",
-  "name": "UserEvent",
-  "namespace": "com.flink_streaming.events",
-  "fields": [
-    {
-      "name": "user_id",
-      "type": {
-        "type": "string",
-        "logicalType": "uuid"
-      }
-    },
-    {
-      "name": "event_type",
-      "type": "string"
-    },
-    {
-      "name": "event_time",
-      "type": {
-        "type": "long",
-        "logicalType": "timestamp-millis"
-      }
-    },
-    {
-      "name": "event_id",
-      "type": {
-        "type": "string",
-        "logicalType": "uuid"
-      }
-    },
-    {
-      "name": "metadata",
-      "type": {
-        "type": "map",
-        "values": "string"
-      },
-      "default": {}
-    }
-  ]
-}
-```
+## Usage details 
 
-## Usage details - Coming soon
+This project is a full-stack, real-time event streaming pipeline built using:
+
+- 🔄 **Kafka Producer** (Java) to simulate user events
+- 🚀 **Apache Flink** to consume, transform, and route events
+- 🧬 **Cassandra** to persist the transformed data
+
+It enables end-to-end event stream processing, from **generation** ➡ **transformation** ➡ **storage**.
+
+## 🔁 Data Flow
+
+```text
+UserEventProducer (Java) → Kafka → Flink → Cassandra
+```
+---
+
+## ⚙️ Technologies Used
+
+  - Java 11+
+
+  - Apache Kafka
+
+  - Apache Flink (v1.18.1)
+
+  -  Apache Cassandra (v4.1)
+
+  - Kafka UI for monitoring topics
+
+  - Docker Compose for local orchestration
+
+## Getting Started
+  - Flink Streaming Consumer app
+
+    ```text
+      checkout flink_app/README.md
+    ```
+
+  - Java Kafka Producer app
+
+    ```text
+      checkout activity_source/README.md
+    ```
