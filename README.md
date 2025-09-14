@@ -36,13 +36,7 @@ It enables end-to-end event stream processing, from **generation** ➡ **transfo
 
 ## Getting Started
   - Flink Streaming Consumer app
-
-    ```text
-      checkout flink_app/README.md
-    ```
+    - [checkout flink_app/README.md](https://github.com/rajatrao/flink_events_consumer/blob/main/flink_app/README.md)
 
   - Java Kafka Producer app
-
-    ```text
-      checkout activity_source/README.md
-    ```
+    - [checkout activity_source/README.md](https://github.com/rajatrao/flink_events_consumer/blob/main/activity_source/README.md)
